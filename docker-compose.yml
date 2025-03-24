@@ -1,0 +1,35 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: shared-nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - shared-network
+
+  # postgres:
+  #   image: postgres:14
+  #   container_name: shared-postgres
+  #   volumes:
+  #     - ./postgres/data:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_USER: ${POSTGRES_USER:-postgres}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+  #     POSTGRES_DB: ${POSTGRES_DB:-postgres}
+  #   ports:
+  #     - "5432:5432"
+  #   restart: always
+  #   networks:
+  #     - shared-network
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres}"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+networks:
+  shared-network:
+    external: true
