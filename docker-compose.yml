@@ -5,8 +5,8 @@ services:
     restart: always
     ports:
       - "8085:80" # port 80 is in use by other services 
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
+    # volumes: # using Dockerfile instead
+      # - ./nginx/conf.d:/etc/nginx/conf.d
     networks:
       - shared-network
 
